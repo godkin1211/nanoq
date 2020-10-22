@@ -5,13 +5,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Build nanoq
+      - name: Compile nanoq
         run: cargo build --verbose --release
-      - name: Build docker image
-        uses: docker/build-push-action@v1
-        with: 
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+      - name: Set up Docker Buildx
+        uses: docker setup-buildx-action@v1
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Build and push
+        uses: docker/build-push-action@v1
+        with:
+          push: true
           dockerfile: Dockerfile
-          repository: godkin1211/nanoq
-          tags: latest
+          tags: godkin1211/nanoq:latest

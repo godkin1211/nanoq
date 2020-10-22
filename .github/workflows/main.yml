@@ -8,10 +8,10 @@ jobs:
       - name: Build nanoq
         run: cargo build --verbose --release
       - name: Build docker image
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v1
         with: 
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           dockerfile: Dockerfile
-          always_pull: true
-          tags: godkin1211/nanoq:latest
+          repository: godkin1211/nanoq
+          tags: latest

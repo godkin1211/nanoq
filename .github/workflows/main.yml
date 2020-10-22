@@ -1,9 +1,9 @@
-- name: nanoq
-  on: [push, pull_request]
-  jobs:
-    build:
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v2
-        - name: Build
-          run: cargo build --verbose --release
+name: 'nanoq'
+on: [push, pull_request]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build
+        run: cargo build --verbose --release

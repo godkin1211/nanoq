@@ -5,5 +5,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Build
+      - name: Build nanoq
         run: cargo build --verbose --release
+      - name: Build docker image
+        uses: docker/build-push-action@v1
+        with: 
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          repository: godkin1211/nanoq
+          dockerfile: Dockerfile
+          always_pull: true
+          tags: latest
